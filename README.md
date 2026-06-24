@@ -1,3 +1,9 @@
+# Project "Sarai Ecosystem" 
+
+Title: Sarai Ilocos | Ecosystem
+Mission & Vision: To digitalize the sarai team through a full fledge workplace -- dts, attendance and essential news in all in one portal.
+Commisioned by: DOST Region 1
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
