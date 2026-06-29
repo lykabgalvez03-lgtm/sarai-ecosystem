@@ -45,9 +45,9 @@ export default function Home() {
       
       {/* BACKGROUND GRADIENTS */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-gradient-to-tr from-blue-600/30 to-indigo-800/20 rounded-full blur-[140px] animate-[spin_25s_infinite_linear]"></div>
-        <div className="absolute top-[20%] -right-40 w-[700px] h-[700px] bg-gradient-to-br from-emerald-600/20 to-teal-900/30 rounded-full blur-[160px] animate-[spin_30s_infinite_linear]"></div>
-        <div className="absolute -bottom-20 left-[20%] w-[800px] h-[600px] bg-gradient-to-tr from-[#f97316]/15 via-rose-500/10 to-transparent rounded-full blur-[150px] animate-[spin_25s_infinite_linear]"></div>
+        <div className="absolute -top-40 -left-40 w-150 h-150 bg-linear-to-tr from-blue-600/30 to-indigo-800/20 rounded-full blur-[140px] animate-[spin_25s_infinite_linear]"></div>
+        <div className="absolute top-[20%] -right-40 w-175 h-175 bg-linear-to-br from-emerald-600/20 to-teal-900/30 rounded-full blur-[160px] animate-[spin_30s_infinite_linear]"></div>
+        <div className="absolute -bottom-20 left-[20%] w-200 h-150 bg-linear-to-tr from-[#f97316]/15 via-rose-500/10 to-transparent rounded-full blur-[150px] animate-[spin_25s_infinite_linear]"></div>
       </div>
 
       {/* HEADER */}
@@ -68,13 +68,13 @@ export default function Home() {
                 <circle cx="72" cy="72" r="20" fill="#ffffff"/>
                 <rect x="42" y="42" width="16" height="16" transform="rotate(45 50 50)" fill="#6366f1"/>
               </svg>
-              <div className="h-4 w-[1px] bg-white/20 mx-1"></div>
+              <div className="h-4 w-px bg-white/20 mx-1"></div>
               <svg className="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 2L15 8L22 9L17 14L18 21L12 17L6 21L7 14L2 9L9 8L12 2Z" fill="currentColor"/>
               </svg>
             </div>
 
-            <div className="h-6 w-[1px] bg-white/10 hidden md:block"></div>
+            <div className="h-6 w-px bg-white/10 hidden md:block"></div>
 
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
@@ -91,7 +91,7 @@ export default function Home() {
               <p className="text-xs font-mono font-bold text-white tracking-widest mt-0.5">{pstTime}</p>
             </div>
             <div className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full pl-2 pr-3 py-1 cursor-pointer transition-all">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-emerald-500 to-blue-600 flex items-center justify-center text-[10px] font-extrabold text-white">AD</div>
+              <div className="w-6 h-6 rounded-full bg-linear-to-tr from-emerald-500 to-blue-600 flex items-center justify-center text-[10px] font-extrabold text-white">AD</div>
               <span className="text-[11px] font-semibold text-slate-300 hidden sm:inline">Admin</span>
             </div>
           </div>
@@ -164,7 +164,7 @@ export default function Home() {
                   <span className="text-slate-300">984 Mbps</span>
                 </div>
                 <div className="w-full bg-white/5 h-1 rounded-full overflow-hidden">
-                  <div className="bg-gradient-to-r from-blue-500 to-emerald-500 h-full w-4/5 animate-[pulse_4s_cubic-bezier(0.4,0,0.6,1)_infinite]"></div>
+                  <div className="bg-linear-to-r from-blue-500 to-emerald-500 h-full w-4/5 animate-[pulse_4s_cubic-bezier(0.4,0,0.6,1)_infinite]"></div>
                 </div>
               </div>
             </div>
@@ -177,20 +177,20 @@ export default function Home() {
             
             {activeTab === 'home' && (
               <div className="space-y-6 animate-fadeIn">
-                <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+                <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-white/10 via-white/5 to-transparent p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
                   <div className="absolute -right-24 -bottom-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none"></div>
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold tracking-widest text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 uppercase mb-4">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                     Smarter Agriculture Platform
                   </span>
                   <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-none">
-                    SARAI <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-400">Ilocos</span>
+                    SARAI <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 via-teal-300 to-blue-400">Ilocos</span>
                   </h1>
                   <p className="text-sm sm:text-base text-slate-300 max-w-xl mt-4 leading-relaxed font-light">
                     Reinvigorating local agriculture in the Ilocos Region through state-of-the-art telemetry integration, real-time tracking structures, and smart crop modeling protocols.
                   </p>
                   <div className="flex flex-wrap gap-3 mt-6">
-                    <button onClick={() => setActiveTab('dts')} className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2">
+                    <button onClick={() => setActiveTab('dts')} className="px-5 py-2.5 rounded-xl bg-linear-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2">
                       Launch DTS Workspace
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </button>
@@ -231,7 +231,7 @@ export default function Home() {
                       <h3 className="text-sm font-bold text-white tracking-wide uppercase">Regional Deployments</h3>
                       <span className="text-[10px] font-mono bg-white/5 border border-white/10 rounded px-2 py-0.5 text-slate-400">ILOCOS REGION</span>
                     </div>
-                    <div className="flex-1 min-h-[220px] rounded-2xl bg-slate-950/50 border border-white/5 p-4 flex items-center justify-center relative">
+                    <div className="flex-1 min-h-55 rounded-2xl bg-slate-950/50 border border-white/5 p-4 flex items-center justify-center relative">
                       <svg className="h-48 w-auto text-emerald-600/30" viewBox="0 0 100 200" fill="currentColor">
                         <path d="M40,10 C45,20 50,30 45,45 C40,60 30,70 35,90 C40,110 55,120 45,140 C35,160 20,170 30,190" stroke="currentColor" strokeWidth="8" strokeLinecap="round" fill="none" />
                       </svg>
@@ -289,7 +289,7 @@ export default function Home() {
                 </div>
                 <p className="text-xs font-bold text-white mt-3">Telemetry Synchronizer Active</p>
               </div>
-              <div className="space-y-2 max-h-[140px] overflow-y-auto pr-1">
+              <div className="space-y-2 max-h-35 overflow-y-auto pr-1">
                 <div className="text-[10px] font-mono text-slate-300 bg-white/5 p-2 rounded-lg border border-white/5">
                   <span className="text-blue-400 font-bold">[SYS]</span> DTS state engine initialized.
                 </div>
@@ -301,7 +301,7 @@ export default function Home() {
                 <h3 className="text-xs font-bold tracking-wider text-slate-400 uppercase">Document QR Generator</h3>
               </div>
               <div className="relative h-44 rounded-2xl bg-slate-950/80 border border-white/10 flex flex-col items-center justify-center overflow-hidden">
-                <div className="absolute left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_15px_rgba(16,185,129,1)] scan-line pointer-events-none z-10"></div>
+                <div className="absolute left-0 w-full h-1 bg-linear-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_15px_rgba(16,185,129,1)] scan-line pointer-events-none z-10"></div>
                 <div className="w-24 h-24 bg-white p-2.5 rounded-xl flex flex-col justify-between shadow-2xl relative z-0">
                   <div className="flex justify-between">
                     <div className="w-6 h-6 border-4 border-slate-950"></div>
@@ -329,7 +329,9 @@ export default function Home() {
 
       <footer className="w-full bg-[#070b13]/80 border-t border-white/5 py-4 z-10">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono text-slate-500">
-          <p>© 2026 Project SARAI CeNTRO — Ilocos Region. All Rights Reserved.</p>
+          <p className="text-center sm:text-left">
+            © 2026 Project SARAI CeNTRO — Ilocos Region. All Rights Reserved.
+          </p>
         </div>
       </footer>
     </div>
