@@ -1,19 +1,26 @@
 'use client';
 
 import React, { useState } from 'react';
-import { DocumentData } from '../page';
+import type { DocumentData } from '../page';
+
+const initialDocuments: DocumentData[] = [
+  { id: 'DOST1-2026-X11', title: 'Agriculture Telemetry Calibration Checklist', origin: 'PSTC - Ilocos Norte', status: 'PENDING REVIEW' },
+  { id: 'DOST1-2026-F42', title: 'Crop Modeling Infographics Guidelines v3', origin: 'R&D Office', status: 'APPROVED' },
+  { id: 'DOST1-2026-G09', title: 'Personnel Field Operations Mobilization Log', origin: 'Administration', status: 'ARCHIVED' }
+];
 
 interface DocTrackProps {
-  documents: DocumentData[];
-  setDocuments: React.Dispatch<React.SetStateAction<DocumentData[]>>;
-  onSelectRow: (id: string) => void;
+  documents?: DocumentData[];
+  setDocuments?: React.Dispatch<React.SetStateAction<DocumentData[]>>;
+  onSelectRow?: (id: string) => void;
 }
 
-export default function DocTrack({ documents, setDocuments, onSelectRow }: DocTrackProps) {
+export default function DocTrack({ documents: propDocuments, setDocuments: propSetDocuments, onSelectRow: propOnSelectRow }: DocTrackProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState<DocumentData | null>(null);
+  const [documents, setDocuments] = useState<DocumentData[]>(propDocuments ?? initialDocuments);
 
   // Form State
   const [formTitle, setFormTitle] = useState('');
@@ -35,7 +42,7 @@ export default function DocTrack({ documents, setDocuments, onSelectRow }: DocTr
       origin: formOrigin,
       status: formStatus as any
     };
-    setDocuments([newDoc, ...documents]);
+    setDocuments((previous) => [newDoc, ...previous]);
     setIsModalOpen(false);
     setFormTitle('');
     setFormOrigin('');
@@ -43,13 +50,13 @@ export default function DocTrack({ documents, setDocuments, onSelectRow }: DocTr
 
   const openDrawer = (doc: DocumentData) => {
     setSelectedDoc(doc);
-    onSelectRow(doc.id);
+    propOnSelectRow?.(doc.id);
     setIsDrawerOpen(true);
   };
 
   const approveDocument = () => {
     if (!selectedDoc) return;
-    setDocuments(documents.map(d => d.id === selectedDoc.id ? { ...d, status: 'APPROVED' } : d));
+    setDocuments((previous) => previous.map((d) => d.id === selectedDoc.id ? { ...d, status: 'APPROVED' } : d));
     setIsDrawerOpen(false);
   };
 
