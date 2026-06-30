@@ -10,7 +10,7 @@ const attendanceHighlights = [
 export default function AttendancePage() {
   return (
     <SiteShell title="Attendance" description="A practical attendance module for managing team presence and daily operations.">
-      <div className="rounded-[2rem] border border-emerald-100 bg-white p-7 shadow-sm">
+      <div className="rounded-4xl border border-emerald-100 bg-white p-7 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">Attendance</p>

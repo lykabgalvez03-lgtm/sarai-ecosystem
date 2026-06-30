@@ -10,7 +10,7 @@ const adminCards = [
 export default function AdminPage() {
   return (
     <SiteShell title="Admin Interface" description="A secure admin space for managing content, attendance, and operations inside the SARAI ecosystem.">
-      <div className="rounded-[2rem] border border-emerald-100 bg-white p-7 shadow-sm">
+      <div className="rounded-4xl border border-emerald-100 bg-white p-7 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">Special access</p>
