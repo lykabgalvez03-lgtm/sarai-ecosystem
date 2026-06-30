@@ -213,7 +213,7 @@ function LandingPage({ onLogin }: { onLogin: () => void }) {
   ];
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(30,107,60,0.16),_transparent_35%),linear-gradient(180deg,_#fcfdfc_0%,_#f6fbf7_100%)]" style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(30,107,60,0.16),transparent_35%),linear-gradient(180deg,#fcfdfc_0%,#f6fbf7_100%)]" style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>
       <nav className="sticky top-0 z-50 border-b border-border/70 bg-white/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-3">
@@ -245,7 +245,7 @@ function LandingPage({ onLogin }: { onLogin: () => void }) {
       </nav>
 
       <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/10 via-white to-emerald-50/80" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-primary/10 via-white to-emerald-50/80" />
         <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
           <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="max-w-2xl">
@@ -411,7 +411,7 @@ function LandingPage({ onLogin }: { onLogin: () => void }) {
               <div className="flex items-start gap-3"><Globe size={16} className="mt-0.5 text-primary" /> region1.dost.gov.ph</div>
             </div>
           </div>
-          <div className="rounded-[1.5rem] bg-primary p-8 text-white">
+          <div className="rounded-3xl bg-primary p-8 text-white">
             <h3 className="mb-2 text-xl font-bold">Ready to access the portal?</h3>
             <p className="mb-6 text-sm text-white/80">Sign in with your DOST credentials to access your workspace and track your team&apos;s activities.</p>
             <button onClick={onLogin} className="w-full rounded-lg bg-white px-4 py-3 font-semibold text-primary transition-all hover:bg-gray-50">Sign In to Portal</button>
@@ -510,7 +510,7 @@ function UserDashboard({ userName }: { userName: string }) {
 
   return (
     <div className="space-y-6 p-6">
-      <div className="rounded-xl bg-gradient-to-r from-primary to-emerald-600 p-6 text-white">
+      <div className="rounded-xl bg-linear-to-r from-primary to-emerald-600 p-6 text-white">
         <p className="text-sm text-white/80">{greeting},</p>
         <h2 className="mb-1 text-2xl font-bold">{userName} 👋</h2>
         <p className="text-xs text-white/70">You have 3 pending documents and your attendance is complete for today.</p>
@@ -824,7 +824,7 @@ function TrophiesPage() {
           <button key={item} onClick={() => setTab(item)} className={`rounded-lg px-5 py-2 text-sm font-semibold capitalize transition-all ${tab === item ? "bg-white text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>{item === "achievements" ? "🏆 Trophies" : "📰 " + item.charAt(0).toUpperCase() + item.slice(1)}</button>
         ))}
       </div>
-      {tab === "news" ? <div className="grid gap-6 sm:grid-cols-2">{news.map((item) => (<article key={item.id} className="overflow-hidden rounded-xl border border-border bg-white transition-shadow hover:shadow-md"><div className="h-52 overflow-hidden bg-muted"><img src={item.image} alt={item.title} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" /></div><div className="p-5"><div className="mb-3 flex items-center gap-2"><span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">{item.tag}</span><span className="text-xs text-muted-foreground">{item.date}</span></div><h3 className="mb-3 font-bold leading-snug text-foreground">{item.title}</h3><p className="text-sm leading-relaxed text-muted-foreground">{item.excerpt}</p><button className="mt-4 flex items-center gap-1 text-xs font-semibold text-primary hover:underline">Read full story <ChevronRight size={12} /></button></div></article>))}</div> : <div><div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{trophies.map((item) => (<div key={item.id} className="flex items-start gap-4 rounded-xl border border-border bg-white p-5 transition-shadow hover:shadow-md"><div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl" style={{ backgroundColor: `${item.color}22` }}>{item.icon}</div><div><h3 className="mb-1 text-sm font-bold text-foreground">{item.title}</h3><p className="text-xs text-muted-foreground">{item.org}</p><p className="mt-1 font-mono text-xs text-primary">{item.date}</p></div></div>))}</div><div className="rounded-2xl bg-gradient-to-r from-primary to-emerald-600 p-8 text-center text-white"><div className="mb-4 text-5xl">🏆</div><h3 className="mb-2 text-2xl font-extrabold">Best Regional Office 2025</h3><p className="mx-auto max-w-md text-sm text-white/80">DOST Region 1 recognized as the Best Regional Office for outstanding performance in technology transfer, community engagement, and innovation in public service.</p><div className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold"><Trophy size={14} /> Awarded by DOST Central Office · June 2025</div></div></div>}
+      {tab === "news" ? <div className="grid gap-6 sm:grid-cols-2">{news.map((item) => (<article key={item.id} className="overflow-hidden rounded-xl border border-border bg-white transition-shadow hover:shadow-md"><div className="h-52 overflow-hidden bg-muted"><img src={item.image} alt={item.title} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" /></div><div className="p-5"><div className="mb-3 flex items-center gap-2"><span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">{item.tag}</span><span className="text-xs text-muted-foreground">{item.date}</span></div><h3 className="mb-3 font-bold leading-snug text-foreground">{item.title}</h3><p className="text-sm leading-relaxed text-muted-foreground">{item.excerpt}</p><button className="mt-4 flex items-center gap-1 text-xs font-semibold text-primary hover:underline">Read full story <ChevronRight size={12} /></button></div></article>))}</div> : <div><div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{trophies.map((item) => (<div key={item.id} className="flex items-start gap-4 rounded-xl border border-border bg-white p-5 transition-shadow hover:shadow-md"><div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl" style={{ backgroundColor: `${item.color}22` }}>{item.icon}</div><div><h3 className="mb-1 text-sm font-bold text-foreground">{item.title}</h3><p className="text-xs text-muted-foreground">{item.org}</p><p className="mt-1 font-mono text-xs text-primary">{item.date}</p></div></div>))}</div><div className="rounded-2xl bg-linear-to-r from-primary to-emerald-600 p-8 text-center text-white"><div className="mb-4 text-5xl">🏆</div><h3 className="mb-2 text-2xl font-extrabold">Best Regional Office 2025</h3><p className="mx-auto max-w-md text-sm text-white/80">DOST Region 1 recognized as the Best Regional Office for outstanding performance in technology transfer, community engagement, and innovation in public service.</p><div className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold"><Trophy size={14} /> Awarded by DOST Central Office · June 2025</div></div></div>}
     </div>
   );
 }

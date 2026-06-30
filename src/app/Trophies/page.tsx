@@ -10,7 +10,7 @@ const highlights = [
 export default function TrophiesPage() {
   return (
     <SiteShell title="Trophies & News" description="A dedicated space for achievements, important notices, and news that keeps the public informed.">
-      <div className="rounded-[2rem] border border-emerald-100 bg-white p-7 shadow-sm">
+      <div className="rounded-4xl border border-emerald-100 bg-white p-7 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">Achievements & announcements</p>

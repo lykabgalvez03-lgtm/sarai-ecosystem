@@ -10,7 +10,7 @@ const dtsItems = [
 export default function DtsPage() {
   return (
     <SiteShell title="DTS" description="A digital document tracking system for the SARAI team to manage files, approvals, and status updates.">
-      <div className="rounded-[2rem] border border-emerald-100 bg-white p-7 shadow-sm">
+      <div className="rounded-4xl border border-emerald-100 bg-white p-7 shadow-sm">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">Document tracking system</p>

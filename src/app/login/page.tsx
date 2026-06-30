@@ -5,7 +5,7 @@ export default function LoginPage() {
   return (
     <SiteShell title="Customer Access" description="Sign in to access your dashboard, request services, and stay connected with the SARAI ecosystem.">
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <section className="rounded-[2rem] border border-emerald-100 bg-white p-7 shadow-sm">
+        <section className="rounded-4xl border border-emerald-100 bg-white p-7 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">Secure sign in</p>
           <h2 className="mt-3 text-3xl font-semibold text-slate-900">Welcome back to the SARAI workplace</h2>
           <p className="mt-3 max-w-xl text-slate-600">
@@ -36,7 +36,7 @@ export default function LoginPage() {
           </div>
         </section>
 
-        <aside className="rounded-[2rem] border border-emerald-100 bg-emerald-50/70 p-7 shadow-sm">
+        <aside className="rounded-4xl border border-emerald-100 bg-emerald-50/70 p-7 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-700">What you can access</p>
           <ul className="mt-5 space-y-3 text-sm text-slate-700">
             <li className="rounded-2xl border border-white bg-white/60 p-3">File transactions and document status updates</li>

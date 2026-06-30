@@ -12,7 +12,7 @@ export default function SiteShell({
   description = "A simple, green, and easy-to-navigate workplace for SARAI Region 1.",
 }: SiteShellProps) {
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.14),_transparent_35%),linear-gradient(135deg,_#f8fdf9_0%,_#f1f8f3_100%)] text-slate-800">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.14),transparent_35%),linear-gradient(135deg,#f8fdf9_0%,#f1f8f3_100%)] text-slate-800">
       <header className="sticky top-0 z-20 border-b border-emerald-100/80 bg-white/80 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3">
@@ -55,7 +55,7 @@ export default function SiteShell({
       </header>
 
       <main className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-        <section className="rounded-[2rem] border border-emerald-100 bg-white/90 p-7 shadow-[0_20px_60px_-24px_rgba(16,185,129,0.28)] sm:p-10 lg:p-14">
+        <section className="rounded-4xl border border-emerald-100 bg-white/90 p-7 shadow-[0_20px_60px_-24px_rgba(16,185,129,0.28)] sm:p-10 lg:p-14">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <p className="mb-4 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-700">
