@@ -246,13 +246,13 @@ function LandingPage({ onLogin }: { onLogin: () => void }) {
 
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-primary/10 via-white to-emerald-50/80" />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
-          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-24">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="max-w-2xl">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/80 px-3 py-1.5 text-xs font-semibold text-primary shadow-sm">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-                DOST Region 1 — official portal
-              </div>
+                DOST Region 1 — Portal
+              </div>    
               <h1 className="mb-6 text-4xl font-extrabold leading-[1.1] text-foreground sm:text-5xl lg:text-6xl">
                 Sarai Ilocos<br />
                 <span className="text-primary">Ecosystem</span>
@@ -313,7 +313,7 @@ function LandingPage({ onLogin }: { onLogin: () => void }) {
       </section>
 
       <section className="bg-primary">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-10 sm:px-6 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:px-6 lg:grid-cols-4">
           {[
             { label: "Active Staff", value: "120+", icon: <Users size={20} /> },
             { label: "Municipalities Served", value: "148", icon: <MapPin size={20} /> },
