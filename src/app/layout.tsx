@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Sarai Ilocos | Ecosystem",
   description: "Made with passion.",
+  icons: [
+    { rel: "icon", url: "/Sarai-IlocosRegion.png", type: "image/png" },
+    { rel: "shortcut icon", url: "/Sarai-IlocosRegion.png", type: "image/png" },
+  ],
 };
 
 export default function RootLayout({
