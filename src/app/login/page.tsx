@@ -27,12 +27,11 @@ export default function LoginPage() {
     setTimeout(() => {
       const safeName = email.split("@")[0].replace(".", " ").replace(/\b\w/g, (c) => c.toUpperCase()) || "Staff";
       const encodedName = encodeURIComponent(safeName);
+      const destination = mode === "admin" ? `/?portal=admin&name=${encodedName}` : `/?portal=user&name=${encodedName}`;
 
-      if (mode === "admin") {
-        router.push(`/?portal=admin&name=${encodedName}`);
-      } else {
-        router.push(`/?portal=user&name=${encodedName}`);
-      }
+      setLoading(false);
+      router.replace(destination);
+      window.location.assign(destination);
     }, 600);
   };
 

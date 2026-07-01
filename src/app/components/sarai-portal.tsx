@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   AlertCircle,
@@ -114,6 +114,8 @@ const priorityDot: Record<string, string> = {
   Normal: "bg-amber-400",
   Low: "bg-gray-300",
 };
+
+type DocumentItem = (typeof documents)[number];
 
 function Sidebar({ role, current, onNav, onLogout, open, onClose }: { role: UserRole; current: Page; onNav: (page: Page) => void; onLogout: () => void; open: boolean; onClose: () => void }) {
   const nav = role === "admin" ? adminNav : userNav;
@@ -652,13 +654,54 @@ function AdminDashboard({ userName }: { userName: string }) {
 function DTSPage({ role }: { role: UserRole }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
+  const [documentsList, setDocumentsList] = useState<DocumentItem[]>(documents);
+  const [showNewDocModal, setShowNewDocModal] = useState(false);
+  const [newDocForm, setNewDocForm] = useState({
+    type: "",
+    subject: "",
+    from: "",
+    to: "",
+    date: new Date().toISOString().slice(0, 10),
+    status: "In Transit" as DocumentItem["status"],
+    priority: "Normal" as DocumentItem["priority"],
+  });
   const statuses = ["All", "In Transit", "Received", "Approved", "For Signature", "Delivered"];
 
-  const filtered = documents.filter((doc) => {
-    const matchSearch = doc.subject.toLowerCase().includes(search.toLowerCase()) || doc.id.includes(search);
+  const filtered = documentsList.filter((doc) => {
+    const matchSearch = doc.subject.toLowerCase().includes(search.toLowerCase()) || doc.id.toLowerCase().includes(search.toLowerCase());
     const matchFilter = filter === "All" || doc.status === filter;
     return matchSearch && matchFilter;
   });
+
+  const handleCreateDocument = (event: FormEvent) => {
+    event.preventDefault();
+
+    if (!newDocForm.type.trim() || !newDocForm.subject.trim() || !newDocForm.from.trim() || !newDocForm.to.trim()) {
+      return;
+    }
+
+    const createdDoc: DocumentItem = {
+      id: newDocForm.type.trim(),
+      subject: newDocForm.subject.trim(),
+      from: newDocForm.from.trim(),
+      to: newDocForm.to.trim(),
+      date: newDocForm.date,
+      status: newDocForm.status,
+      priority: newDocForm.priority,
+    };
+
+    setDocumentsList((prev) => [createdDoc, ...prev]);
+    setShowNewDocModal(false);
+    setNewDocForm({
+      type: "",
+      subject: "",
+      from: "",
+      to: "",
+      date: new Date().toISOString().slice(0, 10),
+      status: "In Transit",
+      priority: "Normal",
+    });
+  };
 
   return (
     <div className="space-y-6 p-6">
@@ -667,7 +710,7 @@ function DTSPage({ role }: { role: UserRole }) {
           <h2 className="text-xl font-bold text-foreground">Document Tracking System</h2>
           <p className="text-sm text-muted-foreground">Monitor and trace all official documents across divisions.</p>
         </div>
-        {role === "admin" && <button className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-primary/90"><Plus size={15} /> New Document</button>}
+        {role === "admin" && <button onClick={() => setShowNewDocModal(true)} className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-primary/90"><Plus size={15} /> New Document</button>}
       </div>
       <div className="rounded-xl border border-border bg-white p-4">
         <div className="flex items-center gap-2 rounded-lg border border-border bg-input-background px-3 py-2">
@@ -689,6 +732,7 @@ function DTSPage({ role }: { role: UserRole }) {
           <div className="col-span-2">Status</div>
         </div>
         <div className="divide-y divide-border">
+
           {filtered.map((doc) => (
             <div key={doc.id} className="grid grid-cols-12 items-center gap-4 px-5 py-3.5 transition-colors hover:bg-muted/20">
               <div className="col-span-2"><div className="flex items-center gap-2"><div className={`h-1.5 w-1.5 shrink-0 rounded-full ${priorityDot[doc.priority]}`} /><span className="font-mono text-xs font-semibold text-primary">{doc.id}</span></div></div>
@@ -700,6 +744,77 @@ function DTSPage({ role }: { role: UserRole }) {
           ))}
         </div>
       </div>
+
+      {showNewDocModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="w-full max-w-xl rounded-2xl border border-border bg-white p-6 shadow-2xl">
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <div>
+                <h3 className="text-lg font-semibold text-foreground">Add New Document</h3>
+                <p className="mt-1 text-sm text-muted-foreground">Create a new document entry for the tracking system.</p>
+              </div>
+              <button onClick={() => setShowNewDocModal(false)} className="rounded-md p-1.5 text-muted-foreground hover:bg-muted">
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateDocument} className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">Type of Document</label>
+                  <input value={newDocForm.type} onChange={(e) => setNewDocForm((prev) => ({ ...prev, type: e.target.value }))} required className="w-full rounded-lg border border-border bg-input-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Memo, Report, Letter..." />
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">Date</label>
+                  <input type="date" value={newDocForm.date} onChange={(e) => setNewDocForm((prev) => ({ ...prev, date: e.target.value }))} required className="w-full rounded-lg border border-border bg-input-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary" />
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">Description of Document</label>
+                <input value={newDocForm.subject} onChange={(e) => setNewDocForm((prev) => ({ ...prev, subject: e.target.value }))} required className="w-full rounded-lg border border-border bg-input-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter the document subject" />
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">From</label>
+                  <input value={newDocForm.from} onChange={(e) => setNewDocForm((prev) => ({ ...prev, from: e.target.value }))} required className="w-full rounded-lg border border-border bg-input-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Office or unit" />
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">To</label>
+                  <input value={newDocForm.to} onChange={(e) => setNewDocForm((prev) => ({ ...prev, to: e.target.value }))} required className="w-full rounded-lg border border-border bg-input-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Recipient" />
+                </div>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status</label>
+                  <select value={newDocForm.status} onChange={(e) => setNewDocForm((prev) => ({ ...prev, status: e.target.value as DocumentItem["status"] }))} className="w-full rounded-lg border border-border bg-input-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="In Transit">In Transit</option>
+                    <option value="Received">Received</option>
+                    <option value="Approved">Approved</option>
+                    <option value="For Signature">For Signature</option>
+                    <option value="Delivered">Delivered</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">Priority</label>
+                  <select value={newDocForm.priority} onChange={(e) => setNewDocForm((prev) => ({ ...prev, priority: e.target.value as DocumentItem["priority"] }))} className="w-full rounded-lg border border-border bg-input-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="High">High</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2">
+                <button type="button" onClick={() => setShowNewDocModal(false)} className="rounded-lg border border-border px-4 py-2 text-sm font-semibold text-muted-foreground">Cancel</button>
+                <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white">Save Document</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1116,13 +1231,25 @@ function TrophiesPage() {
   );
 }
 
+function PortalQuerySync({ onSync }: { onSync: (portal: string | null, name: string) => void }) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (!searchParams) return;
+    const portal = searchParams.get("portal");
+    const name = decodeURIComponent(searchParams.get("name") ?? "Staff Member");
+    onSync(portal, name);
+  }, [onSync, searchParams]);
+
+  return null;
+}
+
 export default function SaraiPortal() {
   const router = useRouter();
   const [page, setPage] = useState<Page>("home");
   const [role, setRole] = useState<UserRole>(null);
   const [userName, setUserName] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const searchParams = useSearchParams();
 
   const clearUrlHash = useCallback(() => {
     if (typeof window !== "undefined" && window.location.hash) {
@@ -1153,11 +1280,7 @@ export default function SaraiPortal() {
     setSidebarOpen(false);
   };
 
-  useEffect(() => {
-    if (!searchParams) return;
-    const portal = searchParams.get("portal");
-    const name = decodeURIComponent(searchParams.get("name") ?? "Staff Member");
-
+  const handlePortalQuerySync = useCallback((portal: string | null, name: string) => {
     if (portal === "user") {
       setRole("user");
       setUserName(name);
@@ -1170,30 +1293,39 @@ export default function SaraiPortal() {
       setUserName(name);
       setPage("admin-dashboard");
     }
-  }, [searchParams]);
+  }, []);
 
   const navigateToLogin = useCallback(() => {
     clearUrlHash();
+    setPage("login");
     router.push("/login");
   }, [clearUrlHash, router]);
 
-  if (page === "home") return <LandingPage onLogin={navigateToLogin} />;
-
-  if (page === "login") return <LoginPage onBack={() => setPage("home")} onLoginUser={handleLoginUser} onLoginAdmin={handleLoginAdmin} />;
-
   return (
-    <div className="flex h-screen overflow-hidden bg-background" style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>
-      <Sidebar role={role} current={page} onNav={setPage} onLogout={handleLogout} open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <div className="flex flex-1 flex-col overflow-hidden">
-        <TopBar onMenuToggle={() => setSidebarOpen((value) => !value)} userName={userName} role={role} />
-        <main className="flex-1 overflow-y-auto">
-          {page === "user-dashboard" && <UserDashboard userName={userName} />}
-          {page === "admin-dashboard" && <AdminDashboard userName={userName} />}
-          {page === "dts" && <DTSPage role={role} />}
-          {page === "attendance" && <AttendancePage userName={userName} />}
-          {page === "trophies" && <TrophiesPage />}
-        </main>
-      </div>
-    </div>
+    <>
+      <Suspense fallback={null}>
+        <PortalQuerySync onSync={handlePortalQuerySync} />
+      </Suspense>
+
+      {page === "home" ? (
+        <LandingPage onLogin={navigateToLogin} />
+      ) : page === "login" ? (
+        <LoginPage onBack={() => setPage("home")} onLoginUser={handleLoginUser} onLoginAdmin={handleLoginAdmin} />
+      ) : (
+        <div className="flex h-screen overflow-hidden bg-background" style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>
+          <Sidebar role={role} current={page} onNav={setPage} onLogout={handleLogout} open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+          <div className="flex flex-1 flex-col overflow-hidden">
+            <TopBar onMenuToggle={() => setSidebarOpen((value) => !value)} userName={userName} role={role} />
+            <main className="flex-1 overflow-y-auto">
+              {page === "user-dashboard" && <UserDashboard userName={userName} />}
+              {page === "admin-dashboard" && <AdminDashboard userName={userName} />}
+              {page === "dts" && <DTSPage role={role} />}
+              {page === "attendance" && <AttendancePage userName={userName} />}
+              {page === "trophies" && <TrophiesPage />}
+            </main>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
