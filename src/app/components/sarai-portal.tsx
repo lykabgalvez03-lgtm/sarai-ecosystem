@@ -590,7 +590,6 @@ function AdminDashboard({ userName }: { userName: string }) {
           <h2 className="text-xl font-bold text-foreground">System Overview</h2>
           <p className="text-sm text-muted-foreground">Welcome back, {userName}. Here&apos;s the status of the Sarai Ecosystem today.</p>
         </div>
-        <div className="rounded-lg bg-muted px-3 py-1.5 text-right font-mono text-xs text-muted-foreground">June 30, 2025 · 08:41 AM</div>
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {[
@@ -656,6 +655,7 @@ function DTSPage({ role }: { role: UserRole }) {
   const [filter, setFilter] = useState("All");
   const [documentsList, setDocumentsList] = useState<DocumentItem[]>(documents);
   const [showNewDocModal, setShowNewDocModal] = useState(false);
+  const [openActionMenuId, setOpenActionMenuId] = useState<string | null>(null);
   const [newDocForm, setNewDocForm] = useState({
     type: "",
     subject: "",
@@ -726,20 +726,35 @@ function DTSPage({ role }: { role: UserRole }) {
       <div className="overflow-hidden rounded-xl border border-border bg-white">
         <div className="grid grid-cols-12 gap-4 border-b border-border bg-muted/30 px-5 py-3 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
           <div className="col-span-2">Type of Document</div>
-          <div className="col-span-4">DESCRIPTION OF DOCUMENT</div>
+          <div className="col-span-3">DESCRIPTION OF DOCUMENT</div>
           <div className="col-span-2 hidden lg:block">From → To</div>
           <div className="col-span-2 hidden md:block">Date</div>
           <div className="col-span-2">Status</div>
+          <div className="col-span-1 text-right">Action</div>
         </div>
         <div className="divide-y divide-border">
 
           {filtered.map((doc) => (
-            <div key={doc.id} className="grid grid-cols-12 items-center gap-4 px-5 py-3.5 transition-colors hover:bg-muted/20">
+            <div key={doc.id} className="relative grid grid-cols-12 items-center gap-4 px-5 py-3.5 transition-colors hover:bg-muted/20">
               <div className="col-span-2"><div className="flex items-center gap-2"><div className={`h-1.5 w-1.5 shrink-0 rounded-full ${priorityDot[doc.priority]}`} /><span className="font-mono text-xs font-semibold text-primary">{doc.id}</span></div></div>
-              <div className="col-span-4 min-w-0"><p className="truncate text-sm font-semibold text-foreground">{doc.subject}</p></div>
+              <div className="col-span-3 min-w-0"><p className="truncate text-sm font-semibold text-foreground">{doc.subject}</p></div>
               <div className="col-span-2 hidden lg:block text-xs text-muted-foreground"><p className="truncate">{doc.from}</p><p className="truncate text-primary/70">→ {doc.to}</p></div>
               <div className="col-span-2 hidden md:block text-xs font-mono text-muted-foreground">{doc.date}</div>
               <div className="col-span-2"><span className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold ${statusColor[doc.status]}`}>{doc.status}</span></div>
+              <div className="col-span-1 flex justify-end">
+                <div className="relative">
+                  <button onClick={() => setOpenActionMenuId(openActionMenuId === doc.id ? null : doc.id)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-white text-xl leading-none text-foreground transition-all hover:border-primary hover:text-primary" aria-label="More options">
+                    <span className="translate-y-[-1px]">⋯</span>
+                  </button>
+                  {openActionMenuId === doc.id && (
+                    <div className="absolute right-0 z-10 mt-2 w-32 rounded-lg border border-border bg-white p-1 shadow-lg">
+                      <button className="flex w-full items-center rounded-md px-3 py-2 text-left text-sm text-foreground hover:bg-muted">Edit</button>
+                      <button className="flex w-full items-center rounded-md px-3 py-2 text-left text-sm text-foreground hover:bg-muted">Delete</button>
+                      <button className="flex w-full items-center rounded-md px-3 py-2 text-left text-sm text-foreground hover:bg-muted">Print</button>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           ))}
         </div>
