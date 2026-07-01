@@ -1121,26 +1121,44 @@ export default function SaraiPortal() {
   const [userName, setUserName] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const clearUrlHash = useCallback(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      const { pathname, search } = window.location;
+      window.history.replaceState(null, "", pathname + search);
+    }
+  }, []);
+
+  const handleSetPage = useCallback(
+    (nextPage: Page) => {
+      clearUrlHash();
+      setPage(nextPage);
+    },
+    [clearUrlHash]
+  );
+
   const handleLoginUser = (name: string) => {
+    clearUrlHash();
     setRole("user");
     setUserName(name);
     setPage("user-dashboard");
   };
 
   const handleLoginAdmin = (name: string) => {
+    clearUrlHash();
     setRole("admin");
     setUserName(name);
     setPage("admin-dashboard");
   };
 
   const handleLogout = () => {
+    clearUrlHash();
     setRole(null);
     setUserName("");
     setPage("home");
     setSidebarOpen(false);
   };
 
-  if (page === "home") return <LandingPage onLogin={() => setPage("login")} />;
+  if (page === "home") return <LandingPage onLogin={() => handleSetPage("login")} />;
 
   if (page === "login") return <LoginPage onBack={() => setPage("home")} onLoginUser={handleLoginUser} onLoginAdmin={handleLoginAdmin} />;
 
