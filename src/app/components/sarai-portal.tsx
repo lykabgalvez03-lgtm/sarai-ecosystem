@@ -682,8 +682,8 @@ function DTSPage({ role }: { role: UserRole }) {
       </div>
       <div className="overflow-hidden rounded-xl border border-border bg-white">
         <div className="grid grid-cols-12 gap-4 border-b border-border bg-muted/30 px-5 py-3 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
-          <div className="col-span-2">Doc ID</div>
-          <div className="col-span-4">Subject</div>
+          <div className="col-span-2">Type of Document</div>
+          <div className="col-span-4">DESCRIPTION OF DOCUMENT</div>
           <div className="col-span-2 hidden lg:block">From → To</div>
           <div className="col-span-2 hidden md:block">Date</div>
           <div className="col-span-2">Status</div>
