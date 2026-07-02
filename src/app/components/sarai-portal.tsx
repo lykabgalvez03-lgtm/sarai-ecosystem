@@ -230,8 +230,8 @@ function LandingPage({ onLogin }: { onLogin: () => void }) {
               <img src="Sarai-IlocosRegion.png" alt="Sarai Ilocos logo" className="h-full w-full object-cover" />
             </div>
             <div>
-              <div className="text-sm font-semibold text-foreground">Sarai Ilocos</div>
-              <div className="text-xs text-muted-foreground">Ecosystem Portal</div>
+              <div className="text-sm font-semibold text-foreground">SARAI</div>
+              <div className="text-xs text-muted-foreground">Sama-sama sa Agrikultura para sa Reporma At Inobasyon</div>
             </div>
           </div>
           <div className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
